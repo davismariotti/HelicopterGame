@@ -18,8 +18,10 @@ end heli_top;
 
 architecture heli_top of heli_top is
 
-   constant TVU: integer := 15;   --Terminal velocity up
-   constant TVD: integer:= 12;   -- Terminal velocity down
+    constant TVU: integer := 15;  -- Terminal velocity up
+    constant TVD: integer:= 12;   -- Terminal velocity down
+   
+    type wall_data is array(0 to 19) of integer range 0 to 9;
 
     signal pixel_x, pixel_y: std_logic_vector(9 downto 0);
     signal video_on, pixel_tick: std_logic;
@@ -30,8 +32,8 @@ architecture heli_top of heli_top is
     signal y : integer := 300;
     signal velocity_y : integer := 0;
     signal heli_top, heli_bottom, heli_left, heli_right : integer := 0; 
-    signal update_pos, update_vel : std_logic := '0'; 
-    signal walls: std_logic_vector(19 downto 0); --numbers for heigh of w
+    signal update_pos, update_vel, update_walls : std_logic := '0'; 
+    signal walls: wall_data := (0, 1, 2, 3, 4, 5, 6, 9, 4, 6, 2, 1, 0, 3, 2, 1, 3, 4, 2, 1); --numbers for height of walls
     signal gameOver: integer := 0; --true when game is over. press reset to play again
 begin
    -- instantiate VGA sync circuit
@@ -84,6 +86,20 @@ vga_sync_unit: entity work.vga_sync
          end if;
     end process;
     
+    process (video_on)
+        variable wall_counter: integer := 0;
+    begin
+        if rising_edge(video_on) then
+            wall_counter := wall_counter + 1;
+            if wall_counter > 10000 then
+                wall_counter := 0;
+                update_walls <= '1';
+            else
+                update_walls <= '0';
+            end if;
+        end if;
+    end process;
+    
 
     -- compute the helicopter's position
     process (update_pos)
@@ -118,7 +134,21 @@ vga_sync_unit: entity work.vga_sync
                 end if;
             end if;
         end if; 
-    end process;        
+    end process;
+    
+    -- Compute walls
+    process (update_walls)
+    variable temp: integer;
+    variable count: integer := 0;
+    begin
+        if rising_edge(update_walls) then
+            temp := walls(count);
+            for i in 1 to 19 loop
+                walls(i - 1) <= walls(i);
+            end loop;
+            walls(19) <= temp;
+        end if;
+    end process;      
     
     -- process to generate next colors     
     process (pixel_x, pixel_y)        
@@ -152,7 +182,7 @@ vga_sync_unit: entity work.vga_sync
               green_next <= "1111";
               blue_next <= "1111";
            elsif (unsigned(pixel_y) < 40) or (unsigned(pixel_y) > 450) then
-                red_next <= "1011";
+                red_next <= "1011"; -- wall
                 green_next <= "1111";
                 blue_next <= "0010"; 
            else    
@@ -182,5 +212,10 @@ vga_sync_unit: entity work.vga_sync
    red <= STD_LOGIC_VECTOR(red_reg);
    green <= STD_LOGIC_VECTOR(green_reg); 
    blue <= STD_LOGIC_VECTOR(blue_reg);
+   
+--   function in_wall_section(px : integer) return std_logic is
+--   begin
+   
+--   end in_wall_section;
 
 end heli_top;
