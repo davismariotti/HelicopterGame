@@ -8,6 +8,7 @@ entity vga_sync is
    port(
       clk, reset: in std_logic;
       btn: in std_logic;
+      playAgain: in std_logic;
       hsync, vsync: out std_logic;
       video_on, p_tick: out std_logic;
       pixel_x, pixel_y: out std_logic_vector (9 downto 0)
