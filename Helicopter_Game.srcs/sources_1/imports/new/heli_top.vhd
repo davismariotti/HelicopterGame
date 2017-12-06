@@ -3,8 +3,6 @@
 library IEEE;
 use IEEE.NUMERIC_STD.ALL;
 use IEEE.STD_LOGIC_1164.ALL;
---next step: random number generator for random walls
---look at https://stackoverflow.com/questions/757151/random-number-generation-on-spartan-3e
 entity heli_top is
     Port (
         clk, reset: in std_logic;
@@ -140,16 +138,19 @@ vga_sync_unit: entity work.vga_sync
     
     -- Compute walls
     process (update_walls)
-    variable temp: integer;
-    variable count: integer := 0;
     begin
         if rising_edge(update_walls) then
             if freeze = '0' then
-                temp := walls(count);
                 for i in 1 to 31 loop
                     walls(i - 1) <= walls(i);
                 end loop;
-                walls(31) <= temp;
+                if(walls(31) < 20) then
+                    walls(31) <= walls(31) + (walls(2)* 13) mod 40;
+               elsif (walls(31) > 440) then
+                     walls(31) <= walls(31) - (walls(2)* 13) mod 40;
+               else
+                     walls(31) <= walls(31)+ (walls(2)* 13) mod 40 - 20;
+               end if;
             end if;
         end if;
     end process;      
