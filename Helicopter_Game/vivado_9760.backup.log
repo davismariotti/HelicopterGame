@@ -1,0 +1,576 @@
+#-----------------------------------------------------------
+# Vivado v2017.2 (64-bit)
+# SW Build 1909853 on Thu Jun 15 18:39:09 MDT 2017
+# IP Build 1909766 on Thu Jun 15 19:58:00 MDT 2017
+# Start of session at: Sun Dec  3 13:37:27 2017
+# Process ID: 9760
+# Current directory: Z:/helicoptergame/Helicopter_Game
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent9736 Z:\helicoptergame\Helicopter_Game\Helicopter_Game.xpr
+# Log file: Z:/helicoptergame/Helicopter_Game/vivado.log
+# Journal file: Z:/helicoptergame/Helicopter_Game\vivado.jou
+#-----------------------------------------------------------
+start_guioopen_project Z:/helicoptergame/Helicopter_Game/Helicopter_Game.xprIINFO: [Project 1-313] Project file moved from 'Z:/Helicopter_Game' since last save.
+Scanning sources...
+Finished scanning sourcesINFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'C:/Xilinx/Vivado/2017.2/data/ip'.
+open_project: Time (s): cpu = 00:00:11 ; elapsed = 00:00:11 . Memory (MB): peak = 753.566 ; gain = 0.121
+update_compile_order -fileset sources_1
+resWARNING: [Common 17-9] Error reading message records.
+WARNING: [Common 17-9] Error reading message records.
+WARNING: [Common 17-9] Error reading message records.
+WARNING: [Common 17-9] Error reading message records.
+WARNING: [Common 17-9] Error reading message records.
+WARNING: [Common 17-9] Error reading message records.
+WARNING: [Common 17-9] Error reading message records.
+WARNING: [Common 17-9] Error reading message records.
+WARNING: [Common 17-9] Error reading message records.
+WARNING: [Common 17-9] Error reading message records.
+open_hw
+exit
+INFO: [Common 17-206] Exiting Vivado at Sun Dec  3 13:59:10 2017...
+th_design
+Using part: xc7a100tcsg324-1
+Top: heli_top
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:03 ; elapsed = 00:00:03 . Memory (MB): peak = 825.063 ; gain = 20.219
+---------------------------------------------------------------------------------
+INFO: [Synth 8-638] synthesizing module 'heli_top' [Z:/helicoptergame/Helicopter_Game/Helicopter_Game.srcs/sources_1/new/heli_top.vhd:18]
+INFO: [Synth 8-638] synthesizing module 'vga_sync' [Z:/helicoptergame/Helicopter_Game/Helicopter_Game.srcs/sources_1/new/vga_sync.vhd:16]
+INFO: [Synth 8-256] done synthesizing module 'vga_sync' (1#1) [Z:/helicoptergame/Helicopter_Game/Helicopter_Game.srcs/sources_1/new/vga_sync.vhd:16]
+WARNING: [Synth 8-614] signal 'heli_left' is read in the process but is not in the sensitivity list [Z:/helicoptergame/Helicopter_Game/Helicopter_Game.srcs/sources_1/new/heli_top.vhd:66]
+WARNING: [Synth 8-614] signal 'heli_right' is read in the process but is not in the sensitivity list [Z:/helicoptergame/Helicopter_Game/Helicopter_Game.srcs/sources_1/new/heli_top.vhd:66]
+WARNING: [Synth 8-614] signal 'heli_bottom' is read in the process but is not in the sensitivity list [Z:/helicoptergame/Helicopter_Game/Helicopter_Game.srcs/sources_1/new/heli_top.vhd:66]
+WARNING: [Synth 8-614] signal 'heli_top' is read in the process but is not in the sensitivity list [Z:/helicoptergame/Helicopter_Game/Helicopter_Game.srcs/sources_1/new/heli_top.vhd:66]
+WARNING: [Synth 8-6014] Unused sequential element counter_reg was removed.  [Z:/helicoptergame/Helicopter_Game/Helicopter_Game.srcs/sources_1/new/heli_top.vhd:47]
+WARNING: [Synth 8-6014] Unused sequential element update_pos_reg was removed.  [Z:/helicoptergame/Helicopter_Game/Helicopter_Game.srcs/sources_1/new/heli_top.vhd:50]
+WARNING: [Synth 8-6014] Unused sequential element y_reg was removed.  [Z:/helicoptergame/Helicopter_Game/Helicopter_Game.srcs/sources_1/new/heli_top.vhd:37]
+WARNING: [Synth 8-6014] Unused sequential element x_reg was removed.  [Z:/helicoptergame/Helicopter_Game/Helicopter_Game.srcs/sources_1/new/heli_top.vhd:39]
+WARNING: [Synth 8-6014] Unused sequential element red_next_reg was removed.  [Z:/helicoptergame/Helicopter_Game/Helicopter_Game.srcs/sources_1/new/heli_top.vhd:71]
+WARNING: [Synth 8-6014] Unused sequential element green_next_reg was removed.  [Z:/helicoptergame/Helicopter_Game/Helicopter_Game.srcs/sources_1/new/heli_top.vhd:72]
+WARNING: [Synth 8-6014] Unused sequential element blue_next_reg was removed.  [Z:/helicoptergame/Helicopter_Game/Helicopter_Game.srcs/sources_1/new/heli_top.vhd:73]
+INFO: [Synth 8-256] done synthesizing module 'heli_top' (2#1) [Z:/helicoptergame/Helicopter_Game/Helicopter_Game.srcs/sources_1/new/heli_top.vhd:18]
+WARNING: [Synth 8-3917] design heli_top has port red[3] driven by constant 1
+WARNING: [Synth 8-3917] design heli_top has port red[2] driven by constant 1
+WARNING: [Synth 8-3917] design heli_top has port red[1] driven by constant 1
+WARNING: [Synth 8-3917] design heli_top has port red[0] driven by constant 1
+WARNING: [Synth 8-3917] design heli_top has port green[3] driven by constant 1
+WARNING: [Synth 8-3917] design heli_top has port green[2] driven by constant 1
+WARNING: [Synth 8-3917] design heli_top has port green[1] driven by constant 0
+WARNING: [Synth 8-3917] design heli_top has port green[0] driven by constant 1
+WARNING: [Synth 8-3917] design heli_top has port blue[3] driven by constant 0
+WARNING: [Synth 8-3917] design heli_top has port blue[2] driven by constant 0
+WARNING: [Synth 8-3917] design heli_top has port blue[1] driven by constant 1
+WARNING: [Synth 8-3917] design heli_top has port blue[0] driven by constant 1
+WARNING: [Synth 8-3331] design heli_top has unconnected port btn
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:03 ; elapsed = 00:00:03 . Memory (MB): peak = 837.086 ; gain = 32.242
+---------------------------------------------------------------------------------
+
+Report Check Netlist: 
++------+------------------+-------+---------+-------+------------------+
+|      |Item              |Errors |Warnings |Status |Description       |
++------+------------------+-------+---------+-------+------------------+
+|1     |multi_driven_nets |      0|        0|Passed |Multi driven nets |
++------+------------------+-------+---------+-------+------------------+
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 837.086 ; gain = 32.242
+---------------------------------------------------------------------------------
+INFO: [Device 21-403] Loading part xc7a100tcsg324-1
+INFO: [Project 1-570] Preparing netlist for logic optimization
+
+Processing XDC Constraints
+Initializing timing engine
+Parsing XDC File [Z:/helicoptergame/Helicopter_Game/Helicopter_Game.srcs/constrs_1/imports/Desktop/Nexys4DDR_Master.xdc]
+WARNING: [Vivado 12-584] No ports matched 'BTND'. [Z:/helicoptergame/Helicopter_Game/Helicopter_Game.srcs/constrs_1/imports/Desktop/Nexys4DDR_Master.xdc:87]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [Z:/helicoptergame/Helicopter_Game/Helicopter_Game.srcs/constrs_1/imports/Desktop/Nexys4DDR_Master.xdc:87]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+Finished Parsing XDC File [Z:/helicoptergame/Helicopter_Game/Helicopter_Game.srcs/constrs_1/imports/Desktop/Nexys4DDR_Master.xdc]
+Completed Processing XDC Constraints
+
+INFO: [Opt 31-141] Inserted 12 OBUFs to IO ports without IO buffers.
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+RTL Elaboration Complete:  : Time (s): cpu = 00:00:17 ; elapsed = 00:00:13 . Memory (MB): peak = 1149.426 ; gain = 344.582
+9 Infos, 25 Warnings, 1 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:00:17 ; elapsed = 00:00:13 . Memory (MB): peak = 1149.426 ; gain = 344.582
+open_hw
+connect_hw_server
+INFO: [Labtools 27-2285] Connecting to hw_server url TCP:localhost:3121
+INFO: [Labtools 27-2222] Launching hw_server...
+INFO: [Labtools 27-2221] Launch Output:
+
+****** Xilinx hw_server v2017.2
+  **** Build date : Jun 15 2017-18:53:26
+    ** Copyright 1986-2017 Xilinx, Inc. All Rights Reserved.
+
+
+open_hw_target
+INFO: [Labtoolstcl 44-466] Opening hw_target localhost:3121/xilinx_tcf/Digilent/210292A4BE91A
+set_property PROGRAM.FILE {Z:/helicoptergame/Helicopter_Game/Helicopter_Game.runs/impl_1/heli_top.bit} [get_hw_devices xc7a100t_0]
+current_hw_device [get_hw_devices xc7a100t_0]
+refresh_hw_device -update_hw_probes false [lindex [get_hw_devices xc7a100t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a100t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+WARNING: [Labtools 27-3361] The debug hub core was not detected.
+Resolution: 
+1. Make sure the clock connected to the debug hub (dbg_hub) core is a free running clock and is active.
+2. Make sure the BSCAN_SWITCH_USER_MASK device property in Vivado Hardware Manager reflects the user scan chain setting in the design and refresh the device.  To determine the user scan chain setting in the design, open the implemented design and use 'get_property C_USER_SCAN_CHAIN [get_debug_cores dbg_hub]'.
+For more details on setting the scan chain property, consult the Vivado Debug and Programming User Guide (UG908).
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {Z:/helicoptergame/Helicopter_Game/Helicopter_Game.runs/impl_1/heli_top.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a100t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+WARNING: [Labtools 27-3361] The debug hub core was not detected.
+Resolution: 
+1. Make sure the clock connected to the debug hub (dbg_hub) core is a free running clock and is active.
+2. Make sure the BSCAN_SWITCH_USER_MASK device property in Vivado Hardware Manager reflects the user scan chain setting in the design and refresh the device.  To determine the user scan chain setting in the design, open the implemented design and use 'get_property C_USER_SCAN_CHAIN [get_debug_cores dbg_hub]'.
+For more details on setting the scan chain property, consult the Vivado Debug and Programming User Guide (UG908).
+close_hw
+reset_run impl_1 -prev_step 
+launch_runs impl_1 -to_step write_bitstream -jobs 4
+[Sun Dec  3 13:52:32 2017] Launched impl_1...
+Run output will be captured here: Z:/helicoptergame/Helicopter_Game/Helicopter_Game.runs/impl_1/runme.log
+open_hw
+connect_hw_server
+INFO: [Labtools 27-2285] Connecting to hw_server url TCP:localhost:3121
+INFO: [Labtools 27-2222] Launching hw_server...
+INFO: [Labtools 27-2221] Launch Output:
+
+****** Xilinx hw_server v2017.2
+  **** Build date : Jun 15 2017-18:53:26
+    ** Copyright 1986-2017 Xilinx, Inc. All Rights Reserved.
+
+
+open_hw_target
+INFO: [Labtoolstcl 44-466] Opening hw_target localhost:3121/xilinx_tcf/Digilent/210292A4BE91A
+set_property PROGRAM.FILE {Z:/helicoptergame/Helicopter_Game/Helicopter_Game.runs/impl_1/heli_top.bit} [get_hw_devices xc7a100t_0]
+current_hw_device [get_hw_devices xc7a100t_0]
+refresh_hw_device -update_hw_probes false [lindex [get_hw_devices xc7a100t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a100t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+WARNING: [Labtools 27-3361] The debug hub core was not detected.
+Resolution: 
+1. Make sure the clock connected to the debug hub (dbg_hub) core is a free running clock and is active.
+2. Make sure the BSCAN_SWITCH_USER_MASK device property in Vivado Hardware Manager reflects the user scan chain setting in the design and refresh the device.  To determine the user scan chain setting in the design, open the implemented design and use 'get_property C_USER_SCAN_CHAIN [get_debug_cores dbg_hub]'.
+For more details on setting the scan chain property, consult the Vivado Debug and Programming User Guide (UG908).
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {Z:/helicoptergame/Helicopter_Game/Helicopter_Game.runs/impl_1/heli_top.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a100t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+WARNING: [Labtools 27-3361] The debug hub core was not detected.
+Resolution: 
+1. Make sure the clock connected to the debug hub (dbg_hub) core is a free running clock and is active.
+2. Make sure the BSCAN_SWITCH_USER_MASK device property in Vivado Hardware Manager reflects the user scan chain setting in the design and refresh the device.  To determine the user scan chain setting in the design, open the implemented design and use 'get_property C_USER_SCAN_CHAIN [get_debug_cores dbg_hub]'.
+For more details on setting the scan chain property, consult the Vivado Debug and Programming User Guide (UG908).
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 4
+[Sun Dec  3 13:59:20 2017] Launched synth_1...
+Run output will be captured here: Z:/helicoptergame/Helicopter_Game/Helicopter_Game.runs/synth_1/runme.log
+[Sun Dec  3 13:59:20 2017] Launched impl_1...
+Run output will be captured here: Z:/helicoptergame/Helicopter_Game/Helicopter_Game.runs/impl_1/runme.log
+ERROR: [Labtoolstcl 44-513] HW Target shutdown. Closing target: localhost:3121/xilinx_tcf/Digilent/210292A4BE91A
+INFO: [Labtoolstcl 44-466] Opening hw_target localhost:3121/xilinx_tcf/Digilent/210292A4BE91A
+INFO: [Labtools 27-1434] Device xc7a100t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+WARNING: [Labtools 27-3361] The debug hub core was not detected.
+Resolution: 
+1. Make sure the clock connected to the debug hub (dbg_hub) core is a free running clock and is active.
+2. Make sure the BSCAN_SWITCH_USER_MASK device property in Vivado Hardware Manager reflects the user scan chain setting in the design and refresh the device.  To determine the user scan chain setting in the design, open the implemented design and use 'get_property C_USER_SCAN_CHAIN [get_debug_cores dbg_hub]'.
+For more details on setting the scan chain property, consult the Vivado Debug and Programming User Guide (UG908).
+WARNING: [Labtoolstcl 44-129] No matching hw_ila_data was found.
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {Z:/helicoptergame/Helicopter_Game/Helicopter_Game.runs/impl_1/heli_top.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a100t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+WARNING: [Labtools 27-3361] The debug hub core was not detected.
+Resolution: 
+1. Make sure the clock connected to the debug hub (dbg_hub) core is a free running clock and is active.
+2. Make sure the BSCAN_SWITCH_USER_MASK device property in Vivado Hardware Manager reflects the user scan chain setting in the design and refresh the device.  To determine the user scan chain setting in the design, open the implemented design and use 'get_property C_USER_SCAN_CHAIN [get_debug_cores dbg_hub]'.
+For more details on setting the scan chain property, consult the Vivado Debug and Programming User Guide (UG908).
+reset_run impl_1 -prev_step 
+launch_runs impl_1 -to_step write_bitstream -jobs 4
+[Sun Dec  3 14:05:33 2017] Launched impl_1...
+Run output will be captured here: Z:/helicoptergame/Helicopter_Game/Helicopter_Game.runs/impl_1/runme.log
+close_hw
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 4
+[Sun Dec  3 14:06:58 2017] Launched synth_1...
+Run output will be captured here: Z:/helicoptergame/Helicopter_Game/Helicopter_Game.runs/synth_1/runme.log
+[Sun Dec  3 14:06:58 2017] Launched impl_1...
+Run output will be captured here: Z:/helicoptergame/Helicopter_Game/Helicopter_Game.runs/impl_1/runme.log
+open_hw
+connect_hw_server
+INFO: [Labtools 27-2285] Connecting to hw_server url TCP:localhost:3121
+INFO: [Labtools 27-2222] Launching hw_server...
+INFO: [Labtools 27-2221] Launch Output:
+
+****** Xilinx hw_server v2017.2
+  **** Build date : Jun 15 2017-18:53:26
+    ** Copyright 1986-2017 Xilinx, Inc. All Rights Reserved.
+
+
+open_hw_target
+INFO: [Labtoolstcl 44-466] Opening hw_target localhost:3121/xilinx_tcf/Digilent/210292A4BE91A
+set_property PROGRAM.FILE {Z:/helicoptergame/Helicopter_Game/Helicopter_Game.runs/impl_1/heli_top.bit} [get_hw_devices xc7a100t_0]
+current_hw_device [get_hw_devices xc7a100t_0]
+refresh_hw_device -update_hw_probes false [lindex [get_hw_devices xc7a100t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a100t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+WARNING: [Labtools 27-3361] The debug hub core was not detected.
+Resolution: 
+1. Make sure the clock connected to the debug hub (dbg_hub) core is a free running clock and is active.
+2. Make sure the BSCAN_SWITCH_USER_MASK device property in Vivado Hardware Manager reflects the user scan chain setting in the design and refresh the device.  To determine the user scan chain setting in the design, open the implemented design and use 'get_property C_USER_SCAN_CHAIN [get_debug_cores dbg_hub]'.
+For more details on setting the scan chain property, consult the Vivado Debug and Programming User Guide (UG908).
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {Z:/helicoptergame/Helicopter_Game/Helicopter_Game.runs/impl_1/heli_top.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a100t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+WARNING: [Labtools 27-3361] The debug hub core was not detected.
+Resolution: 
+1. Make sure the clock connected to the debug hub (dbg_hub) core is a free running clock and is active.
+2. Make sure the BSCAN_SWITCH_USER_MASK device property in Vivado Hardware Manager reflects the user scan chain setting in the design and refresh the device.  To determine the user scan chain setting in the design, open the implemented design and use 'get_property C_USER_SCAN_CHAIN [get_debug_cores dbg_hub]'.
+For more details on setting the scan chain property, consult the Vivado Debug and Programming User Guide (UG908).
+set_property needs_refresh false [get_runs synth_1]
+set_property needs_refresh false [get_runs impl_1]
+close_hw
+reset_run impl_1 -prev_step 
+launch_runs impl_1 -to_step write_bitstream -jobs 4
+[Sun Dec  3 14:13:29 2017] Launched impl_1...
+Run output will be captured here: Z:/helicoptergame/Helicopter_Game/Helicopter_Game.runs/impl_1/runme.log
+reset_run impl_1 -prev_step 
+WARNING: [Vivado 12-1017] Problems encountered:
+1. PID not specified
+
+reset_run synth_1
+WARNING: [Vivado 12-1017] Problems encountered:
+1. PID not specified
+
+launch_runs synth_1 -jobs 4
+[Sun Dec  3 14:13:55 2017] Launched synth_1...
+Run output will be captured here: Z:/helicoptergame/Helicopter_Game/Helicopter_Game.runs/synth_1/runme.log
+launch_runs impl_1 -jobs 4
+[Sun Dec  3 14:14:44 2017] Launched impl_1...
+Run output will be captured here: Z:/helicoptergame/Helicopter_Game/Helicopter_Game.runs/impl_1/runme.log
+launch_runs impl_1 -to_step write_bitstream -jobs 4
+[Sun Dec  3 14:16:04 2017] Launched impl_1...
+Run output will be captured here: Z:/helicoptergame/Helicopter_Game/Helicopter_Game.runs/impl_1/runme.log
+open_hw
+connect_hw_server
+INFO: [Labtools 27-2285] Connecting to hw_server url TCP:localhost:3121
+INFO: [Labtools 27-2222] Launching hw_server...
+INFO: [Labtools 27-2221] Launch Output:
+
+****** Xilinx hw_server v2017.2
+  **** Build date : Jun 15 2017-18:53:26
+    ** Copyright 1986-2017 Xilinx, Inc. All Rights Reserved.
+
+
+open_hw_target
+INFO: [Labtoolstcl 44-466] Opening hw_target localhost:3121/xilinx_tcf/Digilent/210292A4BE91A
+set_property PROGRAM.FILE {Z:/helicoptergame/Helicopter_Game/Helicopter_Game.runs/impl_1/heli_top.bit} [get_hw_devices xc7a100t_0]
+current_hw_device [get_hw_devices xc7a100t_0]
+refresh_hw_device -update_hw_probes false [lindex [get_hw_devices xc7a100t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a100t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+WARNING: [Labtools 27-3361] The debug hub core was not detected.
+Resolution: 
+1. Make sure the clock connected to the debug hub (dbg_hub) core is a free running clock and is active.
+2. Make sure the BSCAN_SWITCH_USER_MASK device property in Vivado Hardware Manager reflects the user scan chain setting in the design and refresh the device.  To determine the user scan chain setting in the design, open the implemented design and use 'get_property C_USER_SCAN_CHAIN [get_debug_cores dbg_hub]'.
+For more details on setting the scan chain property, consult the Vivado Debug and Programming User Guide (UG908).
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {Z:/helicoptergame/Helicopter_Game/Helicopter_Game.runs/impl_1/heli_top.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a100t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+WARNING: [Labtools 27-3361] The debug hub core was not detected.
+Resolution: 
+1. Make sure the clock connected to the debug hub (dbg_hub) core is a free running clock and is active.
+2. Make sure the BSCAN_SWITCH_USER_MASK device property in Vivado Hardware Manager reflects the user scan chain setting in the design and refresh the device.  To determine the user scan chain setting in the design, open the implemented design and use 'get_property C_USER_SCAN_CHAIN [get_debug_cores dbg_hub]'.
+For more details on setting the scan chain property, consult the Vivado Debug and Programming User Guide (UG908).
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {Z:/helicoptergame/Helicopter_Game/Helicopter_Game.runs/impl_1/heli_top.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a100t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+WARNING: [Labtools 27-3361] The debug hub core was not detected.
+Resolution: 
+1. Make sure the clock connected to the debug hub (dbg_hub) core is a free running clock and is active.
+2. Make sure the BSCAN_SWITCH_USER_MASK device property in Vivado Hardware Manager reflects the user scan chain setting in the design and refresh the device.  To determine the user scan chain setting in the design, open the implemented design and use 'get_property C_USER_SCAN_CHAIN [get_debug_cores dbg_hub]'.
+For more details on setting the scan chain property, consult the Vivado Debug and Programming User Guide (UG908).
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 4
+[Sun Dec  3 14:18:24 2017] Launched synth_1...
+Run output will be captured here: Z:/helicoptergame/Helicopter_Game/Helicopter_Game.runs/synth_1/runme.log
+[Sun Dec  3 14:18:24 2017] Launched impl_1...
+Run output will be captured here: Z:/helicoptergame/Helicopter_Game/Helicopter_Game.runs/impl_1/runme.log
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {Z:/helicoptergame/Helicopter_Game/Helicopter_Game.runs/impl_1/heli_top.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a100t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+WARNING: [Labtools 27-3361] The debug hub core was not detected.
+Resolution: 
+1. Make sure the clock connected to the debug hub (dbg_hub) core is a free running clock and is active.
+2. Make sure the BSCAN_SWITCH_USER_MASK device property in Vivado Hardware Manager reflects the user scan chain setting in the design and refresh the device.  To determine the user scan chain setting in the design, open the implemented design and use 'get_property C_USER_SCAN_CHAIN [get_debug_cores dbg_hub]'.
+For more details on setting the scan chain property, consult the Vivado Debug and Programming User Guide (UG908).
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 4
+[Sun Dec  3 14:23:58 2017] Launched synth_1...
+Run output will be captured here: Z:/helicoptergame/Helicopter_Game/Helicopter_Game.runs/synth_1/runme.log
+[Sun Dec  3 14:23:58 2017] Launched impl_1...
+Run output will be captured here: Z:/helicoptergame/Helicopter_Game/Helicopter_Game.runs/impl_1/runme.log
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {Z:/helicoptergame/Helicopter_Game/Helicopter_Game.runs/impl_1/heli_top.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a100t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+WARNING: [Labtools 27-3361] The debug hub core was not detected.
+Resolution: 
+1. Make sure the clock connected to the debug hub (dbg_hub) core is a free running clock and is active.
+2. Make sure the BSCAN_SWITCH_USER_MASK device property in Vivado Hardware Manager reflects the user scan chain setting in the design and refresh the device.  To determine the user scan chain setting in the design, open the implemented design and use 'get_property C_USER_SCAN_CHAIN [get_debug_cores dbg_hub]'.
+For more details on setting the scan chain property, consult the Vivado Debug and Programming User Guide (UG908).
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {Z:/helicoptergame/Helicopter_Game/Helicopter_Game.runs/impl_1/heli_top.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a100t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+WARNING: [Labtools 27-3361] The debug hub core was not detected.
+Resolution: 
+1. Make sure the clock connected to the debug hub (dbg_hub) core is a free running clock and is active.
+2. Make sure the BSCAN_SWITCH_USER_MASK device property in Vivado Hardware Manager reflects the user scan chain setting in the design and refresh the device.  To determine the user scan chain setting in the design, open the implemented design and use 'get_property C_USER_SCAN_CHAIN [get_debug_cores dbg_hub]'.
+For more details on setting the scan chain property, consult the Vivado Debug and Programming User Guide (UG908).
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 4
+[Sun Dec  3 14:28:55 2017] Launched synth_1...
+Run output will be captured here: Z:/helicoptergame/Helicopter_Game/Helicopter_Game.runs/synth_1/runme.log
+[Sun Dec  3 14:28:55 2017] Launched impl_1...
+Run output will be captured here: Z:/helicoptergame/Helicopter_Game/Helicopter_Game.runs/impl_1/runme.log
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {Z:/helicoptergame/Helicopter_Game/Helicopter_Game.runs/impl_1/heli_top.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a100t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+WARNING: [Labtools 27-3361] The debug hub core was not detected.
+Resolution: 
+1. Make sure the clock connected to the debug hub (dbg_hub) core is a free running clock and is active.
+2. Make sure the BSCAN_SWITCH_USER_MASK device property in Vivado Hardware Manager reflects the user scan chain setting in the design and refresh the device.  To determine the user scan chain setting in the design, open the implemented design and use 'get_property C_USER_SCAN_CHAIN [get_debug_cores dbg_hub]'.
+For more details on setting the scan chain property, consult the Vivado Debug and Programming User Guide (UG908).
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 4
+[Sun Dec  3 14:32:12 2017] Launched synth_1...
+Run output will be captured here: Z:/helicoptergame/Helicopter_Game/Helicopter_Game.runs/synth_1/runme.log
+[Sun Dec  3 14:32:12 2017] Launched impl_1...
+Run output will be captured here: Z:/helicoptergame/Helicopter_Game/Helicopter_Game.runs/impl_1/runme.log
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {Z:/helicoptergame/Helicopter_Game/Helicopter_Game.runs/impl_1/heli_top.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a100t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+WARNING: [Labtools 27-3361] The debug hub core was not detected.
+Resolution: 
+1. Make sure the clock connected to the debug hub (dbg_hub) core is a free running clock and is active.
+2. Make sure the BSCAN_SWITCH_USER_MASK device property in Vivado Hardware Manager reflects the user scan chain setting in the design and refresh the device.  To determine the user scan chain setting in the design, open the implemented design and use 'get_property C_USER_SCAN_CHAIN [get_debug_cores dbg_hub]'.
+For more details on setting the scan chain property, consult the Vivado Debug and Programming User Guide (UG908).
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 4
+[Sun Dec  3 14:38:03 2017] Launched synth_1...
+Run output will be captured here: Z:/helicoptergame/Helicopter_Game/Helicopter_Game.runs/synth_1/runme.log
+[Sun Dec  3 14:38:03 2017] Launched impl_1...
+Run output will be captured here: Z:/helicoptergame/Helicopter_Game/Helicopter_Game.runs/impl_1/runme.log
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {Z:/helicoptergame/Helicopter_Game/Helicopter_Game.runs/impl_1/heli_top.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a100t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+WARNING: [Labtools 27-3361] The debug hub core was not detected.
+Resolution: 
+1. Make sure the clock connected to the debug hub (dbg_hub) core is a free running clock and is active.
+2. Make sure the BSCAN_SWITCH_USER_MASK device property in Vivado Hardware Manager reflects the user scan chain setting in the design and refresh the device.  To determine the user scan chain setting in the design, open the implemented design and use 'get_property C_USER_SCAN_CHAIN [get_debug_cores dbg_hub]'.
+For more details on setting the scan chain property, consult the Vivado Debug and Programming User Guide (UG908).
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 4
+[Sun Dec  3 14:44:57 2017] Launched synth_1...
+Run output will be captured here: Z:/helicoptergame/Helicopter_Game/Helicopter_Game.runs/synth_1/runme.log
+[Sun Dec  3 14:44:57 2017] Launched impl_1...
+Run output will be captured here: Z:/helicoptergame/Helicopter_Game/Helicopter_Game.runs/impl_1/runme.log
+close_hw
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 4
+[Sun Dec  3 14:49:20 2017] Launched synth_1...
+Run output will be captured here: Z:/helicoptergame/Helicopter_Game/Helicopter_Game.runs/synth_1/runme.log
+[Sun Dec  3 14:49:20 2017] Launched impl_1...
+Run output will be captured here: Z:/helicoptergame/Helicopter_Game/Helicopter_Game.runs/impl_1/runme.log
+open_hw
+connect_hw_server
+INFO: [Labtools 27-2285] Connecting to hw_server url TCP:localhost:3121
+INFO: [Labtools 27-2222] Launching hw_server...
+INFO: [Labtools 27-2221] Launch Output:
+
+****** Xilinx hw_server v2017.2
+  **** Build date : Jun 15 2017-18:53:26
+    ** Copyright 1986-2017 Xilinx, Inc. All Rights Reserved.
+
+
+open_hw_target
+INFO: [Labtoolstcl 44-466] Opening hw_target localhost:3121/xilinx_tcf/Digilent/210292A4BE91A
+set_property PROGRAM.FILE {Z:/helicoptergame/Helicopter_Game/Helicopter_Game.runs/impl_1/heli_top.bit} [get_hw_devices xc7a100t_0]
+current_hw_device [get_hw_devices xc7a100t_0]
+refresh_hw_device -update_hw_probes false [lindex [get_hw_devices xc7a100t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a100t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+WARNING: [Labtools 27-3361] The debug hub core was not detected.
+Resolution: 
+1. Make sure the clock connected to the debug hub (dbg_hub) core is a free running clock and is active.
+2. Make sure the BSCAN_SWITCH_USER_MASK device property in Vivado Hardware Manager reflects the user scan chain setting in the design and refresh the device.  To determine the user scan chain setting in the design, open the implemented design and use 'get_property C_USER_SCAN_CHAIN [get_debug_cores dbg_hub]'.
+For more details on setting the scan chain property, consult the Vivado Debug and Programming User Guide (UG908).
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {Z:/helicoptergame/Helicopter_Game/Helicopter_Game.runs/impl_1/heli_top.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a100t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+WARNING: [Labtools 27-3361] The debug hub core was not detected.
+Resolution: 
+1. Make sure the clock connected to the debug hub (dbg_hub) core is a free running clock and is active.
+2. Make sure the BSCAN_SWITCH_USER_MASK device property in Vivado Hardware Manager reflects the user scan chain setting in the design and refresh the device.  To determine the user scan chain setting in the design, open the implemented design and use 'get_property C_USER_SCAN_CHAIN [get_debug_cores dbg_hub]'.
+For more details on setting the scan chain property, consult the Vivado Debug and Programming User Guide (UG908).
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 4
+[Sun Dec  3 14:53:46 2017] Launched synth_1...
+Run output will be captured here: Z:/helicoptergame/Helicopter_Game/Helicopter_Game.runs/synth_1/runme.log
+[Sun Dec  3 14:53:46 2017] Launched impl_1...
+Run output will be captured here: Z:/helicoptergame/Helicopter_Game/Helicopter_Game.runs/impl_1/runme.log
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {Z:/helicoptergame/Helicopter_Game/Helicopter_Game.runs/impl_1/heli_top.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a100t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+WARNING: [Labtools 27-3361] The debug hub core was not detected.
+Resolution: 
+1. Make sure the clock connected to the debug hub (dbg_hub) core is a free running clock and is active.
+2. Make sure the BSCAN_SWITCH_USER_MASK device property in Vivado Hardware Manager reflects the user scan chain setting in the design and refresh the device.  To determine the user scan chain setting in the design, open the implemented design and use 'get_property C_USER_SCAN_CHAIN [get_debug_cores dbg_hub]'.
+For more details on setting the scan chain property, consult the Vivado Debug and Programming User Guide (UG908).
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 4
+[Sun Dec  3 14:57:14 2017] Launched synth_1...
+Run output will be captured here: Z:/helicoptergame/Helicopter_Game/Helicopter_Game.runs/synth_1/runme.log
+[Sun Dec  3 14:57:14 2017] Launched impl_1...
+Run output will be captured here: Z:/helicoptergame/Helicopter_Game/Helicopter_Game.runs/impl_1/runme.log
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {Z:/helicoptergame/Helicopter_Game/Helicopter_Game.runs/impl_1/heli_top.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a100t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+WARNING: [Labtools 27-3361] The debug hub core was not detected.
+Resolution: 
+1. Make sure the clock connected to the debug hub (dbg_hub) core is a free running clock and is active.
+2. Make sure the BSCAN_SWITCH_USER_MASK device property in Vivado Hardware Manager reflects the user scan chain setting in the design and refresh the device.  To determine the user scan chain setting in the design, open the implemented design and use 'get_property C_USER_SCAN_CHAIN [get_debug_cores dbg_hub]'.
+For more details on setting the scan chain property, consult the Vivado Debug and Programming User Guide (UG908).
+refresh_design
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:03 ; elapsed = 00:00:03 . Memory (MB): peak = 1450.336 ; gain = 10.148
+---------------------------------------------------------------------------------
+INFO: [Synth 8-638] synthesizing module 'heli_top' [Z:/helicoptergame/Helicopter_Game/Helicopter_Game.srcs/sources_1/new/heli_top.vhd:18]
+INFO: [Synth 8-638] synthesizing module 'vga_sync' [Z:/helicoptergame/Helicopter_Game/Helicopter_Game.srcs/sources_1/new/vga_sync.vhd:16]
+INFO: [Synth 8-256] done synthesizing module 'vga_sync' (1#1) [Z:/helicoptergame/Helicopter_Game/Helicopter_Game.srcs/sources_1/new/vga_sync.vhd:16]
+WARNING: [Synth 8-614] signal 'heli_left' is read in the process but is not in the sensitivity list [Z:/helicoptergame/Helicopter_Game/Helicopter_Game.srcs/sources_1/new/heli_top.vhd:76]
+WARNING: [Synth 8-614] signal 'heli_right' is read in the process but is not in the sensitivity list [Z:/helicoptergame/Helicopter_Game/Helicopter_Game.srcs/sources_1/new/heli_top.vhd:76]
+WARNING: [Synth 8-614] signal 'heli_top' is read in the process but is not in the sensitivity list [Z:/helicoptergame/Helicopter_Game/Helicopter_Game.srcs/sources_1/new/heli_top.vhd:76]
+WARNING: [Synth 8-614] signal 'heli_bottom' is read in the process but is not in the sensitivity list [Z:/helicoptergame/Helicopter_Game/Helicopter_Game.srcs/sources_1/new/heli_top.vhd:76]
+INFO: [Synth 8-4471] merging register 'blue_reg_reg[3:0]' into 'red_reg_reg[3:0]' [Z:/helicoptergame/Helicopter_Game/Helicopter_Game.srcs/sources_1/new/heli_top.vhd:99]
+WARNING: [Synth 8-6014] Unused sequential element blue_next_reg was removed.  [Z:/helicoptergame/Helicopter_Game/Helicopter_Game.srcs/sources_1/new/heli_top.vhd:83]
+WARNING: [Synth 8-6014] Unused sequential element blue_reg_reg was removed.  [Z:/helicoptergame/Helicopter_Game/Helicopter_Game.srcs/sources_1/new/heli_top.vhd:99]
+INFO: [Synth 8-256] done synthesizing module 'heli_top' (2#1) [Z:/helicoptergame/Helicopter_Game/Helicopter_Game.srcs/sources_1/new/heli_top.vhd:18]
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:03 ; elapsed = 00:00:04 . Memory (MB): peak = 1480.754 ; gain = 40.566
+---------------------------------------------------------------------------------
+
+Report Check Netlist: 
++------+------------------+-------+---------+-------+------------------+
+|      |Item              |Errors |Warnings |Status |Description       |
++------+------------------+-------+---------+-------+------------------+
+|1     |multi_driven_nets |      0|        0|Passed |Multi driven nets |
++------+------------------+-------+---------+-------+------------------+
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:03 ; elapsed = 00:00:04 . Memory (MB): peak = 1480.754 ; gain = 40.566
+---------------------------------------------------------------------------------
+INFO: [Project 1-570] Preparing netlist for logic optimization
+
+Processing XDC Constraints
+Initializing timing engine
+Parsing XDC File [Z:/helicoptergame/Helicopter_Game/Helicopter_Game.srcs/constrs_1/imports/Desktop/Nexys4DDR_Master.xdc]
+Finished Parsing XDC File [Z:/helicoptergame/Helicopter_Game/Helicopter_Game.srcs/constrs_1/imports/Desktop/Nexys4DDR_Master.xdc]
+Completed Processing XDC Constraints
+
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+refresh_design: Time (s): cpu = 00:00:11 ; elapsed = 00:00:08 . Memory (MB): peak = 1515.441 ; gain = 75.254
+close_design
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 4
+[Sun Dec  3 15:09:23 2017] Launched synth_1...
+Run output will be captured here: Z:/helicoptergame/Helicopter_Game/Helicopter_Game.runs/synth_1/runme.log
+[Sun Dec  3 15:09:23 2017] Launched impl_1...
+Run output will be captured here: Z:/helicoptergame/Helicopter_Game/Helicopter_Game.runs/impl_1/runme.log
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {Z:/helicoptergame/Helicopter_Game/Helicopter_Game.runs/impl_1/heli_top.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a100t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+WARNING: [Labtools 27-3361] The debug hub core was not detected.
+Resolution: 
+1. Make sure the clock connected to the debug hub (dbg_hub) core is a free running clock and is active.
+2. Make sure the BSCAN_SWITCH_USER_MASK device property in Vivado Hardware Manager reflects the user scan chain setting in the design and refresh the device.  To determine the user scan chain setting in the design, open the implemented design and use 'get_property C_USER_SCAN_CHAIN [get_debug_cores dbg_hub]'.
+For more details on setting the scan chain property, consult the Vivado Debug and Programming User Guide (UG908).
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 4
+[Sun Dec  3 15:20:03 2017] Launched synth_1...
+Run output will be captured here: Z:/helicoptergame/Helicopter_Game/Helicopter_Game.runs/synth_1/runme.log
+[Sun Dec  3 15:20:03 2017] Launched impl_1...
+Run output will be captured here: Z:/helicoptergame/Helicopter_Game/Helicopter_Game.runs/impl_1/runme.log
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {Z:/helicoptergame/Helicopter_Game/Helicopter_Game.runs/impl_1/heli_top.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a100t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+WARNING: [Labtools 27-3361] The debug hub core was not detected.
+Resolution: 
+1. Make sure the clock connected to the debug hub (dbg_hub) core is a free running clock and is active.
+2. Make sure the BSCAN_SWITCH_USER_MASK device property in Vivado Hardware Manager reflects the user scan chain setting in the design and refresh the device.  To determine the user scan chain setting in the design, open the implemented design and use 'get_property C_USER_SCAN_CHAIN [get_debug_cores dbg_hub]'.
+For more details on setting the scan chain property, consult the Vivado Debug and Programming User Guide (UG908).
+close_hw
+close_hw: Time (s): cpu = 00:00:05 ; elapsed = 00:00:32 . Memory (MB): peak = 1515.441 ; gain = 0.000
