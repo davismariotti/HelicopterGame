@@ -3,7 +3,8 @@
 library IEEE;
 use IEEE.NUMERIC_STD.ALL;
 use IEEE.STD_LOGIC_1164.ALL;
-
+--next step: random number generator for random walls
+--look at https://stackoverflow.com/questions/757151/random-number-generation-on-spartan-3e
 entity heli_top is
     Port (
         clk, reset: in std_logic;
@@ -18,23 +19,23 @@ end heli_top;
 
 architecture heli_top of heli_top is
 
-    constant TVU: integer := 15;  -- Terminal velocity up
-    constant TVD: integer:= 12;   -- Terminal velocity down
+    constant TVU: integer := 8;  -- Terminal velocity up
+    constant TVD: integer:= 8;   -- Terminal velocity down
    
-    type wall_data is array(0 to 19) of integer range 0 to 9;
+    type wall_data is array(0 to 31) of integer range 0 to 240;
 
     signal pixel_x, pixel_y: std_logic_vector(9 downto 0);
     signal video_on, pixel_tick: std_logic;
     signal red_reg, red_next: std_logic_vector(3 downto 0) := (others => '0');
     signal green_reg, green_next: std_logic_vector(3 downto 0) := (others => '0');
     signal blue_reg, blue_next: std_logic_vector(3 downto 0) := (others => '0'); 
-    signal x : integer := 300;
-    signal y : integer := 300;
+    signal x : integer := 115; --constant helicopter x position
+    signal y : integer := 300; --initial helicopter y position
     signal velocity_y : integer := 0;
     signal heli_top, heli_bottom, heli_left, heli_right : integer := 0; 
     signal update_pos, update_vel, update_walls : std_logic := '0'; 
-    signal walls: wall_data := (0, 1, 2, 3, 4, 5, 6, 9, 4, 6, 2, 1, 0, 3, 2, 1, 3, 4, 2, 1); --numbers for height of walls
-    signal gameOver: integer := 0; --true when game is over. press reset to play again
+    signal walls: wall_data := (23,46,69,92,115,138,161,184,207,230,200,150,100,60,70,50,40,20,10,10,10,50,10,100,10,100,150,160,100,50,20,0); --numbers for height of walls
+    signal gameOver: boolean := false; --true when game is over. press reset to play again
 begin
    -- instantiate VGA sync circuit
 vga_sync_unit: entity work.vga_sync
@@ -47,7 +48,7 @@ vga_sync_unit: entity work.vga_sync
     heli_right <= x + 23;            
     heli_top <= y;
     heli_bottom <= y + 16;
-    
+-- TODO: create game over screen last    
 --    --reset
 --    process (playAgain)
 --    begin
@@ -106,14 +107,13 @@ vga_sync_unit: entity work.vga_sync
     begin
         if rising_edge(update_pos) then
             if freeze = '0' then
-                x <= 300;
                 y <= y + velocity_y;
-                if (heli_bottom >= 450) then
-                    y <= 200;
-                    gameOver <= 1;
-                elsif (heli_top <= 40)then
-                    y <= 200;
-                    gameOver <= 1;
+                if (heli_bottom >= 240 + walls(6)) then
+                    y <= walls(7) + 100;
+                    gameOver <= true;
+                elsif (heli_top <= walls(6))then
+                    y <= walls(7) + 100;
+                    gameOver <= true;
                 end if;
             end if;
         end if; 
@@ -123,14 +123,16 @@ vga_sync_unit: entity work.vga_sync
     -- compute the helicopter's velocity
     process (update_vel)
     begin
-        if rising_edge(update_pos) then 
-            if btn = '1' then
-                if velocity_y > -TVU then
-                    velocity_y <= velocity_y - 1;
-                end if;
-            else
-                if velocity_y < TVD then
-                    velocity_y <= velocity_y + 1;
+        if rising_edge(update_pos) then
+            if freeze = '0' then
+                if btn = '1' then
+                    if velocity_y > -TVU then
+                        velocity_y <= velocity_y - 1;
+                    end if;
+                else
+                    if velocity_y < TVD then
+                        velocity_y <= velocity_y + 1;
+                    end if;
                 end if;
             end if;
         end if; 
@@ -142,11 +144,13 @@ vga_sync_unit: entity work.vga_sync
     variable count: integer := 0;
     begin
         if rising_edge(update_walls) then
-            temp := walls(count);
-            for i in 1 to 19 loop
-                walls(i - 1) <= walls(i);
-            end loop;
-            walls(19) <= temp;
+            if freeze = '0' then
+                temp := walls(count);
+                for i in 1 to 31 loop
+                    walls(i - 1) <= walls(i);
+                end loop;
+                walls(31) <= temp;
+            end if;
         end if;
     end process;      
     
@@ -175,22 +179,26 @@ vga_sync_unit: entity work.vga_sync
     variable pos_in_heli_x: integer := to_integer(signed(pixel_x)) - heli_left;
     variable pos_in_heli_y: integer := to_integer(signed(pixel_y)) - heli_top;
     begin
-           if (unsigned(pixel_x) >= heli_left) and (unsigned(pixel_x) < (heli_right)) and
+           if (unsigned(pixel_x) >= heli_left) and (unsigned(pixel_x) < heli_right) and
            (unsigned(pixel_y) >= heli_top) and (unsigned(pixel_y) < (heli_bottom)) and
            (heli_data(pos_in_heli_y)(pos_in_heli_x) = '1') then
               red_next <= "1111"; -- White helicopter
               green_next <= "1111";
               blue_next <= "1111";
-           elsif (unsigned(pixel_y) < 40) or (unsigned(pixel_y) > 450) then
-                red_next <= "1011"; -- wall
-                green_next <= "1111";
-                blue_next <= "0010"; 
-           else    
-               -- background color blue
-               red_next <= "0000";
-               green_next <= "0000";
-               blue_next <= "1111";
-           end if;   
+            else    
+              -- background color blue
+              red_next <= "0000";
+              green_next <= "0000";
+              blue_next <= "1111";
+            end if;
+            -- calculate where to draw walls
+            for I in 0 to 31 loop
+              if ((unsigned(pixel_x) < 23*I)and (unsigned(pixel_x) >= 23*(I-1))) and ((unsigned(pixel_y) < walls(I) or (unsigned(pixel_y) > 240 +  walls(I)))) then
+                    red_next <= "1111"; 
+                    green_next <= "0010";
+                    blue_next <= "0010"; 
+              end if;
+            end loop;
     end process;
 
   -- generate r,g,b registers
