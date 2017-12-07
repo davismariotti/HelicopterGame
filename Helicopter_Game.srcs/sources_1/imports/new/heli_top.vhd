@@ -23,6 +23,7 @@ architecture heli_top of heli_top is
     type wall_data is array(0 to 31) of integer range 0 to 240;
 
     signal pixel_x, pixel_y: std_logic_vector(9 downto 0);
+    signal general_up: std_logic := '0'; -- walls will genrally move up the screen if true
     signal video_on, pixel_tick: std_logic;
     signal red_reg, red_next: std_logic_vector(3 downto 0) := (others => '0');
     signal green_reg, green_next: std_logic_vector(3 downto 0) := (others => '0');
@@ -32,7 +33,7 @@ architecture heli_top of heli_top is
     signal velocity_y : integer := 0;
     signal heli_top, heli_bottom, heli_left, heli_right : integer := 0; 
     signal update_pos, update_vel, update_walls : std_logic := '0'; 
-    signal walls: wall_data := (23,46,69,92,115,138,161,184,207,230,200,150,100,60,70,50,40,20,10,10,10,50,10,100,10,100,150,160,100,50,20,0); --numbers for height of walls
+    signal walls: wall_data;
     signal gameOver: boolean := false; --true when game is over. press reset to play again
 begin
    -- instantiate VGA sync circuit
@@ -136,7 +137,7 @@ vga_sync_unit: entity work.vga_sync
         end if; 
     end process;
     
-    -- Compute walls
+    -- Shift walls and compute psuedo-psuedo-random new wall
     process (update_walls)
     begin
         if rising_edge(update_walls) then
@@ -144,12 +145,23 @@ vga_sync_unit: entity work.vga_sync
                 for i in 1 to 31 loop
                     walls(i - 1) <= walls(i);
                 end loop;
-                if(walls(31) < 20) then
-                    walls(31) <= walls(31) + (walls(2)* 13) mod 40;
-               elsif (walls(31) > 440) then
-                     walls(31) <= walls(31) - (walls(2)* 13) mod 40;
-               else
-                     walls(31) <= walls(31)+ (walls(2)* 13) mod 40 - 20;
+                --calculate random change in far right wall
+                if(walls(31) < 31) then 
+                    general_up <= '1';
+                    walls(31) <= 35;
+                elsif (walls(31) >= 230) then
+                    general_up <= '0';
+                     walls(31) <= 225;
+                elsif(general_up = '1')then --should walls generally move up or down
+                     walls(31) <= walls(31)+ ((walls(2) * walls(19) + walls(25) * 13) mod 40) -10; --add value between -10 and 30
+                     if((heli_top + walls(2))*13 mod 10 = 1) then--10 % of the time change general wall direction
+                        general_up <= '0';
+                        end if;
+                else
+                    walls(31) <= walls(31)- ((walls(2) * walls(19) + walls(25) * 13) mod 40) +10; --add value between -30 and 10
+                    if((heli_top + walls(2))*13 mod 10 = 1) then --10 % of the time change general wall direction
+                        general_up <= '1';
+                        end if;
                end if;
             end if;
         end if;
