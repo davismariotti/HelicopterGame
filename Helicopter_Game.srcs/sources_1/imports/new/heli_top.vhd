@@ -24,6 +24,8 @@ architecture heli_top of heli_top is
 
     signal pixel_x, pixel_y: std_logic_vector(9 downto 0);
     signal general_up: std_logic := '0'; -- walls will genrally move up the screen if true
+    signal cave_width: integer := 400;
+    signal general_width_up: std_logic := '0';
     signal video_on, pixel_tick: std_logic;
     signal red_reg, red_next: std_logic_vector(3 downto 0) := (others => '0');
     signal green_reg, green_next: std_logic_vector(3 downto 0) := (others => '0');
@@ -107,11 +109,11 @@ vga_sync_unit: entity work.vga_sync
         if rising_edge(update_pos) then
             if freeze = '0' then
                 y <= y + velocity_y;
-                if (heli_bottom >= 240 + walls(6)) then
-                    y <= walls(7) + 100;
+                if (heli_bottom >= cave_width + walls(6)) then
+                    y <= walls(7) + 50;
                     gameOver <= true;
                 elsif (heli_top <= walls(6))then
-                    y <= walls(7) + 100;
+                    y <= walls(7) + 50;
                     gameOver <= true;
                 end if;
             end if;
@@ -142,6 +144,17 @@ vga_sync_unit: entity work.vga_sync
     begin
         if rising_edge(update_walls) then
             if freeze = '0' then
+                if (cave_width < 100) then
+                    cave_width <= 105;
+                    general_width_up <= '1';
+                elsif (cave_width > 300) then
+                    cave_width <= 295;
+                    general_width_up <= '0';
+                elsif (general_width_up = '1') then 
+                    cave_width <= cave_width + 1;
+                else
+                    cave_width <= cave_width - 1;
+                end if;
                 for i in 1 to 31 loop
                     walls(i - 1) <= walls(i);
                 end loop;
@@ -206,7 +219,7 @@ vga_sync_unit: entity work.vga_sync
             end if;
             -- calculate where to draw walls
             for I in 0 to 31 loop
-              if ((unsigned(pixel_x) < 23*I)and (unsigned(pixel_x) >= 23*(I-1))) and ((unsigned(pixel_y) < walls(I) or (unsigned(pixel_y) > 240 +  walls(I)))) then
+              if ((unsigned(pixel_x) < 23*I)and (unsigned(pixel_x) >= 23*(I-1))) and ((unsigned(pixel_y) < walls(I) or (unsigned(pixel_y) > cave_width +  walls(I)))) then
                     red_next <= "1111"; 
                     green_next <= "0010";
                     blue_next <= "0010"; 
