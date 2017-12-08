@@ -37,6 +37,10 @@ architecture heli_top of heli_top is
     signal update_pos, update_vel, update_walls : std_logic := '0'; 
     signal walls: wall_data;
     signal gameOver: boolean := false; --true when game is over. press reset to play again
+    signal row_offset: integer := 0;
+    signal number: integer := 0;
+    signal column_offset: integer := 0;
+    signal number_return_data: std_logic;
 begin
    -- instantiate VGA sync circuit
 vga_sync_unit: entity work.vga_sync
@@ -44,6 +48,8 @@ vga_sync_unit: entity work.vga_sync
             vsync=>vsync, video_on=>video_on,
             pixel_x=>pixel_x, pixel_y=>pixel_y,
             p_tick=>pixel_tick);
+font_unit: entity work.font_rom
+  port map(data=>number_return_data, column_offset=>column_offset, number=>number, row_offset=>row_offset);
                        
     heli_left <= x;
     heli_right <= x + 23;            
@@ -225,6 +231,19 @@ vga_sync_unit: entity work.vga_sync
                     blue_next <= "0010"; 
               end if;
             end loop;
+            if (unsigned(pixel_x) >= 520) and (unsigned(pixel_y) > 456) then
+                if (unsigned(pixel_x) >= 525) and (unsigned(pixel_x) < 533) and
+                    (unsigned(pixel_y) >= 460) and (unsigned(pixel_y) < 476) and
+                    number_return_data = '1' then
+                    number <= 8;
+                    column_offset <= to_integer(signed(pixel_x)) - 525;
+                    row_offset <= to_integer(signed(pixel_y)) - 456;
+                else                
+                    red_next <= "0000";
+                    green_next <= "0000";
+                    blue_next <= "0000";
+                end if;
+            end if;
     end process;
 
   -- generate r,g,b registers
