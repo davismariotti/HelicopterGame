@@ -38,8 +38,13 @@ architecture heli_top of heli_top is
     signal walls: wall_data;
     signal gameOver: boolean := false; --true when game is over. press reset to play again
     signal row_offset: integer := 0;
-    signal number: integer := 0;
     signal column_offset: integer := 0;
+    signal number: integer := 0;
+    signal score: integer range 0 to 999 := 0;
+    signal score1: integer range 0 to 9 := 0;
+    signal score2: integer range 0 to 9 := 0;
+    signal score3: integer range 0 to 9 := 0;
+    signal score4: integer range 0 to 9 := 0;
     signal number_return_data: std_logic;
 begin
    -- instantiate VGA sync circuit
@@ -102,6 +107,11 @@ font_unit: entity work.font_rom
             if wall_counter > 10000 then
                 wall_counter := 0;
                 update_walls <= '1';
+                score <= score + 1;
+                score1 <= score mod 10;
+                score2 <= (score / 10) mod 10;
+                score3 <= (score / 100) mod 10;
+                score4 <= (score / 1000) mod 10;
             else
                 update_walls <= '0';
             end if;
@@ -210,40 +220,71 @@ font_unit: entity work.font_rom
     );
     variable pos_in_heli_x: integer := to_integer(signed(pixel_x)) - heli_left;
     variable pos_in_heli_y: integer := to_integer(signed(pixel_y)) - heli_top;
+    variable draw_pixel: std_logic := '0';
     begin
-           if (unsigned(pixel_x) >= heli_left) and (unsigned(pixel_x) < heli_right) and
-           (unsigned(pixel_y) >= heli_top) and (unsigned(pixel_y) < (heli_bottom)) and
-           (heli_data(pos_in_heli_y)(pos_in_heli_x) = '1') then
-              red_next <= "1111"; -- White helicopter
-              green_next <= "1111";
-              blue_next <= "1111";
-            else    
-              -- background color blue
-              red_next <= "0000";
-              green_next <= "0000";
-              blue_next <= "1111";
+        draw_pixel := '0';
+        if (unsigned(pixel_x) >= heli_left) and (unsigned(pixel_x) < heli_right) and
+        (unsigned(pixel_y) >= heli_top) and (unsigned(pixel_y) < (heli_bottom)) and
+        (heli_data(pos_in_heli_y)(pos_in_heli_x) = '1') then
+            red_next <= "1111"; -- White helicopter
+            green_next <= "1111";
+            blue_next <= "1111";
+        else    
+            -- background color blue
+            red_next <= "0000";
+            green_next <= "0000";
+            blue_next <= "1111";
+        end if;
+        -- calculate where to draw walls
+        for I in 0 to 31 loop
+            if ((unsigned(pixel_x) < 23*I)and (unsigned(pixel_x) >= 23*(I-1))) and ((unsigned(pixel_y) < walls(I) or (unsigned(pixel_y) > cave_width +  walls(I)))) then
+                red_next <= "1111";
+                green_next <= "0010";
+                blue_next <= "0010";
             end if;
-            -- calculate where to draw walls
-            for I in 0 to 31 loop
-              if ((unsigned(pixel_x) < 23*I)and (unsigned(pixel_x) >= 23*(I-1))) and ((unsigned(pixel_y) < walls(I) or (unsigned(pixel_y) > cave_width +  walls(I)))) then
-                    red_next <= "1111"; 
-                    green_next <= "0010";
-                    blue_next <= "0010"; 
-              end if;
-            end loop;
-            if (unsigned(pixel_x) >= 520) and (unsigned(pixel_y) > 456) then
-                if (unsigned(pixel_x) >= 525) and (unsigned(pixel_x) < 533) and
-                    (unsigned(pixel_y) >= 460) and (unsigned(pixel_y) < 476) and
-                    number_return_data = '1' then
-                    number <= 8;
-                    column_offset <= to_integer(signed(pixel_x)) - 525;
-                    row_offset <= to_integer(signed(pixel_y)) - 456;
-                else                
-                    red_next <= "0000";
-                    green_next <= "0000";
-                    blue_next <= "0000";
+        end loop;
+        if (unsigned(pixel_x) >= 520) and (unsigned(pixel_y) > 456) then
+            row_offset <= to_integer(signed(pixel_y)) - 460;
+            if (unsigned(pixel_x) >= 627) and (unsigned(pixel_x) < 635) and -- Score far right
+                (unsigned(pixel_y) >= 460) and (unsigned(pixel_y) < 476) then
+                column_offset <= to_integer(signed(pixel_x)) - 627;
+                number <= score1;
+                if number_return_data = '1' then
+                    draw_pixel := '1';
+                end if;
+            elsif (unsigned(pixel_x) >= 617) and (unsigned(pixel_x) < 625) and -- Score far right
+                (unsigned(pixel_y) >= 460) and (unsigned(pixel_y) < 476) then
+                column_offset <= to_integer(signed(pixel_x)) - 617;
+                number <= score2;
+                if number_return_data = '1' then
+                    draw_pixel := '1';
+                end if;
+            elsif (unsigned(pixel_x) >= 607) and (unsigned(pixel_x) < 615) and -- Score far right
+                (unsigned(pixel_y) >= 460) and (unsigned(pixel_y) < 476) then
+                column_offset <= to_integer(signed(pixel_x)) - 607;
+                number <= score3;
+                if number_return_data = '1' then
+                    draw_pixel := '1';
+                end if;
+            elsif (unsigned(pixel_x) >= 597) and (unsigned(pixel_x) < 605) and -- Score far right
+                (unsigned(pixel_y) >= 460) and (unsigned(pixel_y) < 476) then
+                column_offset <= to_integer(signed(pixel_x)) - 597;
+                number <= score4;
+                if number_return_data = '1' then
+                    draw_pixel := '1';
                 end if;
             end if;
+            if (draw_pixel = '1') then
+                -- RED
+                red_next <= "1111"; 
+                green_next <= "0010";
+                blue_next <= "0010";
+            else
+                red_next <= "0000";
+                green_next <= "0000";
+                blue_next <= "0000";
+            end if;
+        end if;
     end process;
 
   -- generate r,g,b registers
