@@ -35,6 +35,7 @@ architecture heli_top of heli_top is
     signal update_pos, update_vel, update_walls : std_logic := '0'; 
     signal walls: wall_data;
     signal gameOver: boolean := false; --true when game is over. press reset to play again
+    signal score: integer := 0;
 begin
    -- instantiate VGA sync circuit
 vga_sync_unit: entity work.vga_sync
@@ -94,6 +95,7 @@ vga_sync_unit: entity work.vga_sync
             if wall_counter > 10000 then
                 wall_counter := 0;
                 update_walls <= '1';
+                score <= score + 1;
             else
                 update_walls <= '0';
             end if;
@@ -197,7 +199,7 @@ vga_sync_unit: entity work.vga_sync
            (heli_data(pos_in_heli_y)(pos_in_heli_x) = '1') then
               red_next <= "1111"; -- White helicopter
               green_next <= "1111";
-              blue_next <= "1111";
+              blue_next <= "1111";  
             else    
               -- background color blue
               red_next <= "0000";
@@ -212,6 +214,11 @@ vga_sync_unit: entity work.vga_sync
                     blue_next <= "0010"; 
               end if;
             end loop;
+            if (unsigned(pixel_x) >= 520) and (unsigned(pixel_y) > 456) then
+                red_next <= "0000";
+                green_next <= "0000";
+                blue_next <= "0000";
+            end if;
     end process;
 
   -- generate r,g,b registers
