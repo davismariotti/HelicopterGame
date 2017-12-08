@@ -44,7 +44,7 @@ vga_sync_unit: entity work.vga_sync
             vsync=>vsync, video_on=>video_on,
             pixel_x=>pixel_x, pixel_y=>pixel_y,
             p_tick=>pixel_tick);
-                
+                       
     heli_left <= x;
     heli_right <= x + 23;            
     heli_top <= y;
