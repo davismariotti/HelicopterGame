@@ -17,8 +17,8 @@ end heli_top;
 
 architecture heli_top of heli_top is
 
-    constant TVU: integer := 8;  -- Terminal velocity up
-    constant TVD: integer:= 8;   -- Terminal velocity down
+    constant TVU: integer := 7;  -- Terminal velocity up
+    constant TVD: integer:= 7;   -- Terminal velocity down
    
     type wall_data is array(0 to 31) of integer range 0 to 240;
 
