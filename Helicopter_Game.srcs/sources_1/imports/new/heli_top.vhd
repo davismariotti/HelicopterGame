@@ -113,6 +113,23 @@ font_unit: entity work.font_rom
         end if;
     end process;
     
+    --updates score
+    process (video_on)
+        variable score_counter: integer := 0;
+    begin
+        if rising_edge(video_on) then
+            score_counter := score_counter + 1;
+            if score_counter > 5000 and freeze = '0' then
+                score <= score + 1;
+                score1 <= score mod 10;
+                score2 <= (score / 10) mod 10;
+                score3 <= (score / 100) mod 10;
+                score4 <= (score / 1000) mod 10;
+                score_counter := 0;
+            end if;
+        end if;
+    end process;
+    
 
     -- compute the helicopter's position
     process (update_pos)
@@ -155,11 +172,6 @@ font_unit: entity work.font_rom
     begin
         if rising_edge(update_walls) then
             if freeze = '0' then
-                score <= score + 1;
-                score1 <= score mod 10;
-                score2 <= (score / 10) mod 10;
-                score3 <= (score / 100) mod 10;
-                score4 <= (score / 1000) mod 10;
                 if (cave_width < 100) then
                     cave_width <= 105;
                     general_width_up <= '1';
