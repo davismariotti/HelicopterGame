@@ -36,7 +36,8 @@ architecture heli_top of heli_top is
     signal heli_top, heli_bottom, heli_left, heli_right : integer := 0; 
     signal update_pos, update_vel, update_walls : std_logic := '0'; 
     signal walls: wall_data;
-    signal gameOver: boolean := false; --true when game is over. press reset to play again
+    signal game_over_pause: std_logic := '0'; --true when game is over. press reset to play again
+    signal start_pause: std_logic := '1';
     signal row_offset: integer := 0;
     signal column_offset: integer := 0;
     signal number: integer := 0;
@@ -46,6 +47,7 @@ architecture heli_top of heli_top is
     signal score3: integer range 0 to 9 := 0;
     signal score4: integer range 0 to 9 := 0;
     signal number_return_data: std_logic;
+    signal pause_game: std_logic := '1';
 begin
    -- instantiate VGA sync circuit
 vga_sync_unit: entity work.vga_sync
@@ -73,77 +75,62 @@ font_unit: entity work.font_rom
     -- process to generate update position signal
     process ( video_on )
         variable counter : integer := 0;
-    begin
-        if rising_edge(video_on) then
-            counter := counter + 1;
-            if counter > 1000 then
-                counter := 0;
-                update_pos <= '1';
-            else
-                update_pos <= '0';
-            end if;
-         end if;
-    end process;
-    
-    process ( video_on )
         variable vel_counter : integer := 0;
-    begin
-        if rising_edge(video_on) then
-            vel_counter := vel_counter + 1;
-            if vel_counter > 2000 then
-                vel_counter := 0;
-                update_vel <= '1';
-            else
-                update_vel <= '0';
-            end if;
-         end if;
-    end process;
-    
-    process (video_on)
         variable wall_counter: integer := 0;
-    begin
-        if rising_edge(video_on) then
-            wall_counter := wall_counter + 1;
-            if wall_counter > 10000 then
-                wall_counter := 0;
-                update_walls <= '1';
-            else
-                update_walls <= '0';
-            end if;
-        end if;
-    end process;
-    
-    --updates score
-    process (video_on)
         variable score_counter: integer := 0;
     begin
-        if rising_edge(video_on) then
-            score_counter := score_counter + 1;
-            if score_counter > 5000 and freeze = '0' then
-                score <= score + 1;
-                score1 <= score mod 10;
-                score2 <= (score / 10) mod 10;
-                score3 <= (score / 100) mod 10;
-                score4 <= (score / 1000) mod 10;
-                score_counter := 0;
+        if rising_edge(video_on) and freeze = '0' then
+            if start_pause = '0' then
+                counter := counter + 1;
+                vel_counter := vel_counter + 1;
+                wall_counter := wall_counter + 1;
+                score_counter := score_counter + 1;
+                
+                if counter > 1000 then
+                    counter := 0;
+                    update_pos <= '1';
+                else
+                    update_pos <= '0';
+                end if;
+                if vel_counter > 2000 then
+                    vel_counter := 0;
+                    update_vel <= '1';
+                else
+                    update_vel <= '0';
+                end if;
+                if wall_counter > 10000 then
+                    wall_counter := 0;
+                    update_walls <= '1';
+                else
+                    update_walls <= '0';
+                end if;
+                if score_counter > 5000 then
+                    score <= score + 1;
+                    score1 <= score mod 10;
+                    score2 <= (score / 10) mod 10;
+                    score3 <= (score / 100) mod 10;
+                    score4 <= (score / 1000) mod 10;
+                    score_counter := 0;
+                end if;
+            else
+                if btn = '1' then
+                    start_pause <= '0';
+                end if;
             end if;
-        end if;
+         end if;
     end process;
-    
 
     -- compute the helicopter's position
     process (update_pos)
     begin
         if rising_edge(update_pos) then
-            if freeze = '0' then
-                y <= y + velocity_y;
-                if (heli_bottom >= cave_width + walls(6)) then
-                    y <= walls(7) + 50;
-                    gameOver <= true;
-                elsif (heli_top <= walls(6))then
-                    y <= walls(7) + 50;
-                    gameOver <= true;
-                end if;
+            y <= y + velocity_y;
+            if (heli_bottom >= cave_width + walls(6)) then
+                y <= walls(7) + 50;
+                --game_over_pause <= '1';
+            elsif (heli_top <= walls(6))then
+                y <= walls(7) + 50;
+                --game_over_pause <= '1';
             end if;
         end if; 
     end process;
@@ -153,58 +140,54 @@ font_unit: entity work.font_rom
     process (update_vel)
     begin
         if rising_edge(update_pos) then
-            if freeze = '0' then
-                if btn = '1' then
-                    if velocity_y > -TVU then
-                        velocity_y <= velocity_y - 1;
-                    end if;
-                else
-                    if velocity_y < TVD then
-                        velocity_y <= velocity_y + 1;
-                    end if;
+            if btn = '1' then
+                if velocity_y > -TVU then
+                    velocity_y <= velocity_y - 1;
+                end if;
+            else
+                if velocity_y < TVD then
+                    velocity_y <= velocity_y + 1;
                 end if;
             end if;
-        end if; 
+        end if;
     end process;
     
     -- Shift walls and compute psuedo-psuedo-random new wall
     process (update_walls)
     begin
         if rising_edge(update_walls) then
-            if freeze = '0' then
-                if (cave_width < 100) then
-                    cave_width <= 105;
-                    general_width_up <= '1';
-                elsif (cave_width > 300) then
-                    cave_width <= 295;
-                    general_width_up <= '0';
-                elsif (general_width_up = '1') then 
-                    cave_width <= cave_width + 1;
-                else
-                    cave_width <= cave_width - 1;
-                end if;
-                for i in 1 to 31 loop
-                    walls(i - 1) <= walls(i);
-                end loop;
-                --calculate random change in far right wall
-                if(walls(31) < 31) then 
-                    general_up <= '1';
-                    walls(31) <= 35;
-                elsif (walls(31) >= 230) then
-                    general_up <= '0';
-                     walls(31) <= 225;
-                elsif(general_up = '1')then --should walls generally move up or down
-                     walls(31) <= walls(31)+ ((walls(2) * walls(19) + walls(25) * 13) mod 40) -10; --add value between -10 and 30
-                     if((heli_top + walls(2))*13 mod 10 = 1) then--10 % of the time change general wall direction
-                        general_up <= '0';
-                        end if;
-                else
-                    walls(31) <= walls(31)- ((walls(2) * walls(19) + walls(25) * 13) mod 40) +10; --add value between -30 and 10
-                    if((heli_top + walls(2))*13 mod 10 = 1) then --10 % of the time change general wall direction
-                        general_up <= '1';
-                        end if;
-               end if;
+            if (cave_width < 100) then
+                cave_width <= 105;
+                general_width_up <= '1';
+            elsif (cave_width > 300) then
+                cave_width <= 295;
+                general_width_up <= '0';
+            elsif (general_width_up = '1') then 
+                cave_width <= cave_width + 1;
+            else
+                cave_width <= cave_width - 1;
             end if;
+            for i in 1 to 31 loop
+                walls(i - 1) <= walls(i);
+            end loop;
+            --calculate random change in far right wall
+            if(walls(31) < 31) then 
+                general_up <= '1';
+                walls(31) <= 35;
+            elsif (walls(31) >= 230) then
+                general_up <= '0';
+                 walls(31) <= 225;
+            elsif(general_up = '1')then --should walls generally move up or down
+                 walls(31) <= walls(31)+ ((walls(2) * walls(19) + walls(25) * 13) mod 40) -10; --add value between -10 and 30
+                 if((heli_top + walls(2))*13 mod 10 = 1) then--10 % of the time change general wall direction
+                    general_up <= '0';
+                    end if;
+            else
+                walls(31) <= walls(31)- ((walls(2) * walls(19) + walls(25) * 13) mod 40) +10; --add value between -30 and 10
+                if((heli_top + walls(2))*13 mod 10 = 1) then --10 % of the time change general wall direction
+                    general_up <= '1';
+                    end if;
+           end if;
         end if;
     end process;      
     
@@ -324,6 +307,76 @@ font_unit: entity work.font_rom
                 (unsigned(pixel_y) >= 460) and (unsigned(pixel_y) < 476) then
                 column_offset <= to_integer(signed(pixel_x)) - 532;
                 number <= 10;
+                if number_return_data = '1' then
+                    draw_pixel := '1';
+                end if;
+            end if;
+            if (draw_pixel = '1') then
+                -- RED
+                red_next <= "1111"; 
+                green_next <= "0010";
+                blue_next <= "0010";
+            else
+                red_next <= "0000";
+                green_next <= "0000";
+                blue_next <= "0000";
+            end if;
+        elsif (unsigned(pixel_x) >= 272) and (unsigned(pixel_x) < 365) and -- Score far right
+            (unsigned(pixel_y) > 228) and (unsigned(pixel_y) < 252) then
+            row_offset <= to_integer(signed(pixel_y)) - 232;
+            if (unsigned(pixel_x) >= 276) and (unsigned(pixel_x) < 284) and -- Score far right
+                (unsigned(pixel_y) >= 232) and (unsigned(pixel_y) < 248) then
+                column_offset <= to_integer(signed(pixel_x)) - 276;
+                number <= 16;
+                if number_return_data = '1' then
+                    draw_pixel := '1';
+                end if;
+            elsif (unsigned(pixel_x) >= 286) and (unsigned(pixel_x) < 294) and -- Score far right
+                (unsigned(pixel_y) >= 232) and (unsigned(pixel_y) < 248) then
+                column_offset <= to_integer(signed(pixel_x)) - 286;
+                number <= 17;
+                if number_return_data = '1' then
+                    draw_pixel := '1';
+                end if;
+            elsif (unsigned(pixel_x) >= 296) and (unsigned(pixel_x) < 304) and -- Score far right
+                (unsigned(pixel_y) >= 232) and (unsigned(pixel_y) < 248) then
+                column_offset <= to_integer(signed(pixel_x)) - 296;
+                number <= 18;
+                if number_return_data = '1' then
+                    draw_pixel := '1';
+                end if;
+            elsif (unsigned(pixel_x) >= 306) and (unsigned(pixel_x) < 314) and -- Score far right
+                (unsigned(pixel_y) >= 232) and (unsigned(pixel_y) < 248) then
+                column_offset <= to_integer(signed(pixel_x)) - 306;
+                number <= 19;
+                if number_return_data = '1' then
+                    draw_pixel := '1';
+                end if;
+            elsif (unsigned(pixel_x) >= 320) and (unsigned(pixel_x) < 328) and -- Score far right
+                (unsigned(pixel_y) >= 232) and (unsigned(pixel_y) < 248) then
+                column_offset <= to_integer(signed(pixel_x)) - 320;
+                number <= 20;
+                if number_return_data = '1' then
+                    draw_pixel := '1';
+                end if;
+            elsif (unsigned(pixel_x) >= 330) and (unsigned(pixel_x) < 338) and -- Score far right
+                (unsigned(pixel_y) >= 232) and (unsigned(pixel_y) < 248) then
+                column_offset <= to_integer(signed(pixel_x)) - 330;
+                number <= 21;
+                if number_return_data = '1' then
+                    draw_pixel := '1';
+                end if;
+            elsif (unsigned(pixel_x) >= 340) and (unsigned(pixel_x) < 348) and -- Score far right
+                (unsigned(pixel_y) >= 232) and (unsigned(pixel_y) < 248) then
+                column_offset <= to_integer(signed(pixel_x)) - 340;
+                number <= 19;
+                if number_return_data = '1' then
+                    draw_pixel := '1';
+                end if;
+            elsif (unsigned(pixel_x) >= 350) and (unsigned(pixel_x) < 358) and -- Score far right
+                (unsigned(pixel_y) >= 232) and (unsigned(pixel_y) < 248) then
+                column_offset <= to_integer(signed(pixel_x)) - 350;
+                number <= 22;
                 if number_return_data = '1' then
                     draw_pixel := '1';
                 end if;
