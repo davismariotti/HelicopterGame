@@ -1,4 +1,8 @@
-
+--Main file for Helicopter game logic.
+--Tom Dale,Davis Mariotti, Andrew Peacock
+--
+--includes heli_top: calculates position of helicopter and walls, communicates with users button, vga_sync, and font_unit
+--manages collisions, timer, reset, gameOver, and freeze
 
 library IEEE;
 use IEEE.NUMERIC_STD.ALL;
@@ -42,7 +46,7 @@ architecture heli_top of heli_top is
     signal column_offset: integer := 0;
     signal number: integer := 0;
     signal score: integer range 0 to 999 := 0;
-    signal score1: integer range 0 to 9 := 0;
+    signal score1: integer range 0 to 9 := 0;--single character portions of total score
     signal score2: integer range 0 to 9 := 0;
     signal score3: integer range 0 to 9 := 0;
     signal score4: integer range 0 to 9 := 0;
@@ -57,12 +61,12 @@ vga_sync_unit: entity work.vga_sync
 font_unit: entity work.font_rom
   port map(data=>number_return_data, column_offset=>column_offset, number=>number, row_offset=>row_offset);
                        
-    heli_left <= x;
+    heli_left <= x;--helicopter doesnt move in x direction, only up and down
     heli_right <= x + 23;            
     heli_top <= y;
     heli_bottom <= y + 16;
     
-    -- process to generate update position signal
+    -- process to generate update position, velocity, walls, and increment score
     process ( video_on )
         variable counter : integer := 0;
         variable vel_counter : integer := 0;
@@ -77,25 +81,25 @@ font_unit: entity work.font_rom
                 wall_counter := wall_counter + 1;
                 score_counter := score_counter + 1;
                 
-                if counter > 1000 then
+                if counter > 1000 then --update postion every 2000 clocks
                     counter := 0;
                     update_pos <= '1';
                 else
                     update_pos <= '0';
                 end if;
-                if vel_counter > 2000 then
+                if vel_counter > 2000 then --update velocity every 2000 clocks
                     vel_counter := 0;
                     update_vel <= '1';
                 else
                     update_vel <= '0';
                 end if;
-                if wall_counter > 10000 then
+                if wall_counter > 10000 then --walls increment every 10000 clocks
                     wall_counter := 0;
                     update_walls <= '1';
                 else
                     update_walls <= '0';
                 end if;
-                if score_counter > 5000 then
+                if score_counter > 5000 then --scores incrment every 5000 clocks
                     score <= score + 1;
                     score1 <= score mod 10;
                     score2 <= (score / 10) mod 10;
@@ -121,7 +125,7 @@ font_unit: entity work.font_rom
             game_over_counter := 0; 
         elsif rising_edge(update_pos) then
             y <= y + velocity_y;
-            if (heli_bottom >= cave_width + walls(6)) then
+            if (heli_bottom >= cave_width + walls(6)) then -- calculate collision with walls
                 y <= walls(7) + 50;
                 game_over_pause <= '1';
             elsif (heli_top <= walls(6))then
@@ -152,7 +156,7 @@ font_unit: entity work.font_rom
     process (update_walls)
     begin
         if rising_edge(update_walls) then
-            if (cave_width < 100) then
+            if (cave_width < 100) then--randomly change difficulty by changing cave_width
                 cave_width <= 105;
                 general_width_up <= '1';
             elsif (cave_width > 300) then
@@ -191,7 +195,7 @@ font_unit: entity work.font_rom
     process (pixel_x, pixel_y)        
     type heli_sprite is array (0 to 15) of std_logic_vector(0 to 22);
     
-    variable heli_data : heli_sprite := (
+    variable heli_data : heli_sprite := (-- helicopter bits
         "0011110000000000001111",
         "00000011110000011110000",
         "00000000001111100000000",
