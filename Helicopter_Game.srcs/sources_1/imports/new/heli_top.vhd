@@ -116,11 +116,11 @@ font_unit: entity work.font_rom
     end process;
 
     -- compute the helicopter's position
-    process (btn, update_pos, video_on)
+    process (playAgain, update_pos, video_on)
     begin
-        if game_over_pause = '1' and btn = '1' then
+        if game_over_pause = '1' and playAgain = '1' then
             game_over_pause <= '0';
-        elsif game_over_pause = '1' and btn = '0' then
+        elsif game_over_pause = '1' and playAgain = '0' then
         elsif rising_edge(update_pos) then
             y <= y + velocity_y;
             if (heli_bottom >= cave_width + walls(6)) then -- calculate collision with walls
