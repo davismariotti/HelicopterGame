@@ -238,6 +238,7 @@ font_unit: entity work.font_rom
                 blue_next <= "0010";
             end if;
         end loop;
+        --draw scores to screen, must be separated by individual digits
         if (unsigned(pixel_x) >= 520) and (unsigned(pixel_y) > 456) then
             row_offset <= to_integer(signed(pixel_y)) - 460;
             if (unsigned(pixel_x) >= 627) and (unsigned(pixel_x) < 635) and -- Score far right
@@ -247,63 +248,64 @@ font_unit: entity work.font_rom
                 if number_return_data = '1' then
                     draw_pixel := '1';
                 end if;
-            elsif (unsigned(pixel_x) >= 617) and (unsigned(pixel_x) < 625) and -- Score far right
+            elsif (unsigned(pixel_x) >= 617) and (unsigned(pixel_x) < 625) and -- Score second right
                 (unsigned(pixel_y) >= 460) and (unsigned(pixel_y) < 476) then
                 column_offset <= to_integer(signed(pixel_x)) - 617;
                 number <= score2;
                 if number_return_data = '1' then
                     draw_pixel := '1';
                 end if;
-            elsif (unsigned(pixel_x) >= 607) and (unsigned(pixel_x) < 615) and -- Score far right
+            elsif (unsigned(pixel_x) >= 607) and (unsigned(pixel_x) < 615) and -- Score third right
                 (unsigned(pixel_y) >= 460) and (unsigned(pixel_y) < 476) then
                 column_offset <= to_integer(signed(pixel_x)) - 607;
                 number <= score3;
                 if number_return_data = '1' then
                     draw_pixel := '1';
                 end if;
-            elsif (unsigned(pixel_x) >= 597) and (unsigned(pixel_x) < 605) and -- Score far right
+            elsif (unsigned(pixel_x) >= 597) and (unsigned(pixel_x) < 605) and -- Score far left
                 (unsigned(pixel_y) >= 460) and (unsigned(pixel_y) < 476) then
                 column_offset <= to_integer(signed(pixel_x)) - 597;
                 number <= score4;
                 if number_return_data = '1' then
                     draw_pixel := '1';
                 end if;
-            elsif (unsigned(pixel_x) >= 582) and (unsigned(pixel_x) < 590) and -- Score far right
+                --below is "score:" printed to screen
+            elsif (unsigned(pixel_x) >= 582) and (unsigned(pixel_x) < 590) and -- :
                 (unsigned(pixel_y) >= 460) and (unsigned(pixel_y) < 476) then
                 column_offset <= to_integer(signed(pixel_x)) - 582;
                 number <= 15;
                 if number_return_data = '1' then
                     draw_pixel := '1';
                 end if;
-            elsif (unsigned(pixel_x) >= 572) and (unsigned(pixel_x) < 580) and -- Score far right
+            elsif (unsigned(pixel_x) >= 572) and (unsigned(pixel_x) < 580) and -- e
                 (unsigned(pixel_y) >= 460) and (unsigned(pixel_y) < 476) then
                 column_offset <= to_integer(signed(pixel_x)) - 572;
                 number <= 14;
                 if number_return_data = '1' then
                     draw_pixel := '1';
                 end if;
-            elsif (unsigned(pixel_x) >= 562) and (unsigned(pixel_x) < 570) and -- Score far right
+            elsif (unsigned(pixel_x) >= 562) and (unsigned(pixel_x) < 570) and -- r
                 (unsigned(pixel_y) >= 460) and (unsigned(pixel_y) < 476) then
                 column_offset <= to_integer(signed(pixel_x)) - 562;
                 number <= 13;
                 if number_return_data = '1' then
                     draw_pixel := '1';
                 end if;
-            elsif (unsigned(pixel_x) >= 552) and (unsigned(pixel_x) < 560) and -- Score far right
+            elsif (unsigned(pixel_x) >= 552) and (unsigned(pixel_x) < 560) and -- o
                 (unsigned(pixel_y) >= 460) and (unsigned(pixel_y) < 476) then
                 column_offset <= to_integer(signed(pixel_x)) - 552;
                 number <= 12;
                 if number_return_data = '1' then
                     draw_pixel := '1';
                 end if;
-            elsif (unsigned(pixel_x) >= 542) and (unsigned(pixel_x) < 550) and -- Score far right
+            elsif (unsigned(pixel_x) >= 542) and (unsigned(pixel_x) < 550) and -- c
                 (unsigned(pixel_y) >= 460) and (unsigned(pixel_y) < 476) then
                 column_offset <= to_integer(signed(pixel_x)) - 542;
                 number <= 11;
                 if number_return_data = '1' then
                     draw_pixel := '1';
                 end if;
-            elsif (unsigned(pixel_x) >= 532) and (unsigned(pixel_x) < 540) and -- Score far right
+            elsif (unsigned(pixel_x) >= 532) and (unsigned(pixel_x) < 540) and -- S
                 (unsigned(pixel_y) >= 460) and (unsigned(pixel_y) < 476) then
                 column_offset <= to_integer(signed(pixel_x)) - 532;
                 number <= 10;
@@ -321,59 +323,60 @@ font_unit: entity work.font_rom
                 green_next <= "0000";
                 blue_next <= "0000";
             end if;
-        elsif (unsigned(pixel_x) >= 272) and (unsigned(pixel_x) < 365) and -- Score far right
+            --draw game over
+        elsif (unsigned(pixel_x) >= 272) and (unsigned(pixel_x) < 365) and -- game over screen center
             (unsigned(pixel_y) > 228) and (unsigned(pixel_y) < 252) and game_over_pause = '1' then
             row_offset <= to_integer(signed(pixel_y)) - 232;
-            if (unsigned(pixel_x) >= 276) and (unsigned(pixel_x) < 284) and -- Score far right
+            if (unsigned(pixel_x) >= 276) and (unsigned(pixel_x) < 284) and -- r
                 (unsigned(pixel_y) >= 232) and (unsigned(pixel_y) < 248) then
                 column_offset <= to_integer(signed(pixel_x)) - 276;
                 number <= 16;
                 if number_return_data = '1' then
                     draw_pixel := '1';
                 end if;
-            elsif (unsigned(pixel_x) >= 286) and (unsigned(pixel_x) < 294) and -- Score far right
+            elsif (unsigned(pixel_x) >= 286) and (unsigned(pixel_x) < 294) and -- e
                 (unsigned(pixel_y) >= 232) and (unsigned(pixel_y) < 248) then
                 column_offset <= to_integer(signed(pixel_x)) - 286;
                 number <= 17;
                 if number_return_data = '1' then
                     draw_pixel := '1';
                 end if;
-            elsif (unsigned(pixel_x) >= 296) and (unsigned(pixel_x) < 304) and -- Score far right
+            elsif (unsigned(pixel_x) >= 296) and (unsigned(pixel_x) < 304) and -- v
                 (unsigned(pixel_y) >= 232) and (unsigned(pixel_y) < 248) then
                 column_offset <= to_integer(signed(pixel_x)) - 296;
                 number <= 18;
                 if number_return_data = '1' then
                     draw_pixel := '1';
                 end if;
-            elsif (unsigned(pixel_x) >= 306) and (unsigned(pixel_x) < 314) and -- Score far right
+            elsif (unsigned(pixel_x) >= 306) and (unsigned(pixel_x) < 314) and -- O
                 (unsigned(pixel_y) >= 232) and (unsigned(pixel_y) < 248) then
                 column_offset <= to_integer(signed(pixel_x)) - 306;
                 number <= 19;
                 if number_return_data = '1' then
                     draw_pixel := '1';
                 end if;
-            elsif (unsigned(pixel_x) >= 320) and (unsigned(pixel_x) < 328) and -- Score far right
+            elsif (unsigned(pixel_x) >= 320) and (unsigned(pixel_x) < 328) and -- E
                 (unsigned(pixel_y) >= 232) and (unsigned(pixel_y) < 248) then
                 column_offset <= to_integer(signed(pixel_x)) - 320;
                 number <= 20;
                 if number_return_data = '1' then
                     draw_pixel := '1';
                 end if;
-            elsif (unsigned(pixel_x) >= 330) and (unsigned(pixel_x) < 338) and -- Score far right
+            elsif (unsigned(pixel_x) >= 330) and (unsigned(pixel_x) < 338) and -- M
                 (unsigned(pixel_y) >= 232) and (unsigned(pixel_y) < 248) then
                 column_offset <= to_integer(signed(pixel_x)) - 330;
                 number <= 21;
                 if number_return_data = '1' then
                     draw_pixel := '1';
                 end if;
-            elsif (unsigned(pixel_x) >= 340) and (unsigned(pixel_x) < 348) and -- Score far right
+            elsif (unsigned(pixel_x) >= 340) and (unsigned(pixel_x) < 348) and -- A
                 (unsigned(pixel_y) >= 232) and (unsigned(pixel_y) < 248) then
                 column_offset <= to_integer(signed(pixel_x)) - 340;
                 number <= 19;
                 if number_return_data = '1' then
                     draw_pixel := '1';
                 end if;
-            elsif (unsigned(pixel_x) >= 350) and (unsigned(pixel_x) < 358) and -- Score far right
+            elsif (unsigned(pixel_x) >= 350) and (unsigned(pixel_x) < 358) and -- G
                 (unsigned(pixel_y) >= 232) and (unsigned(pixel_y) < 248) then
                 column_offset <= to_integer(signed(pixel_x)) - 350;
                 number <= 22;
