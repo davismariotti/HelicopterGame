@@ -74,8 +74,10 @@ font_unit: entity work.font_rom
         variable score_counter: integer := 0;
         variable game_over_counter: integer := 0;
     begin
-        if rising_edge(video_on) and freeze = '0' then
-            if start_pause = '0' and game_over_pause = '0' then
+        if game_over_pause = '1' then
+            score <= 0;
+        elsif (rising_edge(video_on) and freeze = '0') and game_over_pause = '0' then
+            if start_pause = '0' then
                 counter := counter + 1;
                 vel_counter := vel_counter + 1;
                 wall_counter := wall_counter + 1;
@@ -115,14 +117,10 @@ font_unit: entity work.font_rom
 
     -- compute the helicopter's position
     process (btn, update_pos, video_on)
-        variable game_over_counter: integer := 0;
     begin
-        if rising_edge(video_on) and game_over_counter <= 50000 and game_over_pause = '1' then
-            game_over_counter := game_over_counter + 1;
-        end if;
-        if game_over_pause = '1' and btn = '1' and game_over_counter > 50000 then
+        if game_over_pause = '1' and btn = '1' then
             game_over_pause <= '0';
-            game_over_counter := 0; 
+        elsif game_over_pause = '1' and btn = '0' then
         elsif rising_edge(update_pos) then
             y <= y + velocity_y;
             if (heli_bottom >= cave_width + walls(6)) then -- calculate collision with walls
@@ -155,7 +153,7 @@ font_unit: entity work.font_rom
     -- Shift walls and compute psuedo-psuedo-random new wall
     process (update_walls)
     begin
-        if rising_edge(update_walls) then
+        if rising_edge(update_walls)  then
             if (cave_width < 100) then--randomly change difficulty by changing cave_width
                 cave_width <= 105;
                 general_width_up <= '1';

@@ -5,7 +5,8 @@
 --   - 128 (2^7) characters
 --   - ROM size: 512-by-8 (2^11-by-8) bits
 --               16K bits: 1 BRAM
-
+--modified by Tom/Davis/Andrew team for the use of Helicopter game
+--used in score counter and 'game over'
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
