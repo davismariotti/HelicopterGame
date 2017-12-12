@@ -31,7 +31,7 @@ architecture heli_top of heli_top is
     signal green_reg, green_next: std_logic_vector(3 downto 0) := (others => '0');
     signal blue_reg, blue_next: std_logic_vector(3 downto 0) := (others => '0'); 
     signal x : integer := 115; --constant helicopter x position
-    signal y : integer := 300; --initial helicopter y position
+    signal y : integer := 150; --initial helicopter y position
     signal velocity_y : integer := 0;
     signal heli_top, heli_bottom, heli_left, heli_right : integer := 0; 
     signal update_pos, update_vel, update_walls : std_logic := '0'; 
@@ -47,7 +47,6 @@ architecture heli_top of heli_top is
     signal score3: integer range 0 to 9 := 0;
     signal score4: integer range 0 to 9 := 0;
     signal number_return_data: std_logic;
-    signal pause_game: std_logic := '1';
 begin
    -- instantiate VGA sync circuit
 vga_sync_unit: entity work.vga_sync
@@ -62,15 +61,6 @@ font_unit: entity work.font_rom
     heli_right <= x + 23;            
     heli_top <= y;
     heli_bottom <= y + 16;
--- TODO: create game over screen last    
---    --reset
---    process (playAgain)
---    begin
---        if (playAgain = '1') then
---            y <= 200;
---            gameOver <= 0;
---        end if;
---    end process;
     
     -- process to generate update position signal
     process ( video_on )
@@ -78,9 +68,10 @@ font_unit: entity work.font_rom
         variable vel_counter : integer := 0;
         variable wall_counter: integer := 0;
         variable score_counter: integer := 0;
+        variable game_over_counter: integer := 0;
     begin
         if rising_edge(video_on) and freeze = '0' then
-            if start_pause = '0' then
+            if start_pause = '0' and game_over_pause = '0' then
                 counter := counter + 1;
                 vel_counter := vel_counter + 1;
                 wall_counter := wall_counter + 1;
@@ -112,25 +103,30 @@ font_unit: entity work.font_rom
                     score4 <= (score / 1000) mod 10;
                     score_counter := 0;
                 end if;
-            else
-                if btn = '1' then
-                    start_pause <= '0';
-                end if;
+            elsif btn = '1' then
+                start_pause <= '0';
             end if;
          end if;
     end process;
 
     -- compute the helicopter's position
-    process (update_pos)
+    process (btn, update_pos, video_on)
+        variable game_over_counter: integer := 0;
     begin
-        if rising_edge(update_pos) then
+        if rising_edge(video_on) and game_over_counter <= 50000 and game_over_pause = '1' then
+            game_over_counter := game_over_counter + 1;
+        end if;
+        if game_over_pause = '1' and btn = '1' and game_over_counter > 50000 then
+            game_over_pause <= '0';
+            game_over_counter := 0; 
+        elsif rising_edge(update_pos) then
             y <= y + velocity_y;
             if (heli_bottom >= cave_width + walls(6)) then
                 y <= walls(7) + 50;
-                --game_over_pause <= '1';
+                game_over_pause <= '1';
             elsif (heli_top <= walls(6))then
                 y <= walls(7) + 50;
-                --game_over_pause <= '1';
+                game_over_pause <= '1';
             end if;
         end if; 
     end process;
@@ -322,7 +318,7 @@ font_unit: entity work.font_rom
                 blue_next <= "0000";
             end if;
         elsif (unsigned(pixel_x) >= 272) and (unsigned(pixel_x) < 365) and -- Score far right
-            (unsigned(pixel_y) > 228) and (unsigned(pixel_y) < 252) then
+            (unsigned(pixel_y) > 228) and (unsigned(pixel_y) < 252) and game_over_pause = '1' then
             row_offset <= to_integer(signed(pixel_y)) - 232;
             if (unsigned(pixel_x) >= 276) and (unsigned(pixel_x) < 284) and -- Score far right
                 (unsigned(pixel_y) >= 232) and (unsigned(pixel_y) < 248) then
