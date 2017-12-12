@@ -1,6 +1,6 @@
 # HelicopterGame
 
-### The Idea
+## The Idea
 Use VHDL to write a helicopter flight game with a Nexys 4 DDR Board.
 
 ## The Goals
